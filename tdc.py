@@ -322,7 +322,7 @@ def main():
 
 
 
-    #death_check()
+    death_check()
     resurrection_check()
 
 if __name__ == '__main__':
