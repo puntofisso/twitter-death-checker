@@ -250,6 +250,8 @@ def resurrection_action(users):
     if config.refollow_resurrected:
         for user in users:
             # refollow
+            if user == config.username:
+                continue
             resp, content = client.request("http://api.twitter.com/1.1/friendships/create.json", \
                 method="POST", body=urllib.urlencode({'screen_name': user}) )
             api_calls_counter = api_calls_counter + 1 # TODO replace with time?
@@ -264,6 +266,7 @@ def resurrection_action(users):
             # some very basic error management
             if resp['status'] not in ['200']:
                 print "[ERROR] There was an error!\n"
+                print user
                 print resp
                 print "\n"
                 return
@@ -327,7 +330,7 @@ def main():
 
 
 
-    death_check()
+    #death_check()
     resurrection_check()
 
 if __name__ == '__main__':
