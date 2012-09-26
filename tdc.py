@@ -227,7 +227,12 @@ def resurrection_check():
     for user in users:
         latest_id = user['id']
         latest_name = user['screen_name']
-        created_at = user['status']['created_at']
+	# TODO it seems that sometimes user comes without "status", this is very weird (and potentially a bug in the API)
+        try:
+            created_at = user['status']['created_at']
+        except:
+            print "[DEBUG] we got a user without a status reported: " + user['screen_name']
+            continue
 
         x = datetime.datetime.strptime(created_at,'%a %b %d %H:%M:%S +0000 %Y')
         survival = ((today-x).days)
